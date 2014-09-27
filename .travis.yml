@@ -1,0 +1,7 @@
+deploy:
+  provider: openshift
+  user: "rodrigoeg"
+  password: "YOUR PASSWORD" # can be encrypted
+  domain: "caronacerta-rodrigoeg.rhcloud.com"
+  app:
+    master: caronacerta
