@@ -1,3 +1,10 @@
+language: php
+php:
+  - 5.4
+
+install:
+   - composer install
+
 deploy:
   provider: openshift
   user: rodrigoegoncalves@gmail.com
