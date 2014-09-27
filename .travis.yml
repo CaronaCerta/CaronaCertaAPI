@@ -15,7 +15,6 @@ deploy:
     secure: G+jDwdA5uAEoshon3+JIvGB886+TJAFT1HEf1LM3c08q6FMwJATYshwQ4EdwWvEMmKg09yB1Uzk0CZgtHYdJueOYCTNv7Q/eTb5m1PTTkUJJFUUd44bXBlnEYasxPohfalCYxeprZkAEkN3yjd4neCiwDDcLDFO+umxGHjnWw6U=
   app:
     master: caronacerta
-  domain: caronacerta-rodrigoeg.rhcloud.com
 
 branches:
   only:
