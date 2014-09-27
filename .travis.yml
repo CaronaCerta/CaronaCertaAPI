@@ -5,6 +5,9 @@ php:
 install:
    - composer install
 
+script:
+  - echo "Building"
+
 deploy:
   provider: openshift
   user: rodrigoegoncalves@gmail.com
