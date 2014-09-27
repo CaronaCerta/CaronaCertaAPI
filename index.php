@@ -5,7 +5,6 @@ require 'vendor/autoload.php';
 require './include/DbHandler.php';
 require './include/PassHash.php';
 require './include/Response.php';
-//require './include/appache_request_headers.php';
 
 require './app/middlewares/Authenticate.php';
 
