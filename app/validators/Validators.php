@@ -28,7 +28,7 @@ class Validators {
             $app = \Slim\Slim::getInstance();
             $response['error'] = true;
             $response['message'] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
-            echoRespnse(400, $response);
+            Response::echoRespnse(400, $response);
             $app->stop();
         }
     }
@@ -41,7 +41,7 @@ class Validators {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $response['error'] = true;
             $response['message'] = 'Email address is not valid';
-            echoRespnse(400, $response);
+            Response::echoRespnse(400, $response);
             $app->stop();
         }
     }
