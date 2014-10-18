@@ -28,13 +28,13 @@ $app->post('/register', function () use ($app) {
 
     if ($res == USER_CREATED_SUCCESSFULLY) {
         $response["error"] = false;
-        $response["message"] = "You are successfully registered";
+        $response["message"] = "Registro feito com sucesso";
     } else if ($res == USER_CREATE_FAILED) {
         $response["error"] = true;
-        $response["message"] = "Oops! An error occurred while registering";
+        $response["message"] = "Oops! Um erro ocorreu durante o registro";
     } else if ($res == USER_ALREADY_EXISTS) {
         $response["error"] = true;
-        $response["message"] = "Sorry, this email already exists";
+        $response["message"] = "Desculpe, esse e-mail já esta no sistema";
     }
     // echo json response
     Response::echoRespnse(201, $response);
@@ -65,17 +65,15 @@ $app->post('/login', function () use ($app) {
             $response["error"] = false;
             $response['name'] = $user['name'];
             $response['email'] = $user['email'];
-            $response['apiKey'] = $user['api_key'];
-            $response['createdAt'] = $user['created_at'];
         } else {
             // unknown error occurred
             $response['error'] = true;
-            $response['message'] = "An error occurred. Please try again";
+            $response['message'] = "Um erro ocorreu, por favor tente novamente.";
         }
     } else {
         // user credentials are wrong
         $response['error'] = true;
-        $response['message'] = 'Login failed. Incorrect credentials';
+        $response['message'] = 'Login falhou. Credenciais incorretas';
     }
 
     Response::echoRespnse(200, $response);

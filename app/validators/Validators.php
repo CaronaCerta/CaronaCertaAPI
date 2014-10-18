@@ -27,7 +27,7 @@ class Validators {
             $response = array();
             $app = \Slim\Slim::getInstance();
             $response['error'] = true;
-            $response['message'] = 'Required field(s) ' . substr($error_fields, 0, -2) . ' is missing or empty';
+            $response['message'] = 'Campo obrigatório' . substr($error_fields, 0, -2) . ' faltando ou vazio';
             Response::echoRespnse(400, $response);
             $app->stop();
         }
@@ -40,9 +40,19 @@ class Validators {
         $app = \Slim\Slim::getInstance();
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $response['error'] = true;
-            $response['message'] = 'Email address is not valid';
+            $response['message'] = 'Endereço de e-mail inválido';
             Response::echoRespnse(400, $response);
             $app->stop();
         }
+    }
+    
+    public static function validateFunction($email) {
+    	$app = \Slim\Slim::getInstance();
+    	if (!filter_var($email, FILTER_VALIDATE_BOOLEAN)) {
+    		$response['error'] = true;
+    		$response['message'] = 'Função de usuário inválida';
+    		Response::echoRespnse(400, $response);
+    		$app->stop();
+    	}
     }
 } 
