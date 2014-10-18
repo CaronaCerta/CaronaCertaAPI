@@ -9,6 +9,7 @@ require './include/Response.php';
 require './app/middlewares/Authenticate.php';
 
 require './app/models/Task.php';
+require './app/models/Avaliacao.php';
 require './app/models/User.php';
 require './app/models/UserTask.php';
 
@@ -25,6 +26,8 @@ $app->group('/users', function () use ($app) {
 $app->group('/tasks', array(new Authenticate(), 'call'), function () use ($app) {
     require './app/controllers/TaskController.php';
 });
-
+$app->group('/avaliacao', array(new Authenticate(), 'call'), function () use ($app) {
+	require './app/controllers/AvaliacaoController.php';
+});
 
 $app->run();
