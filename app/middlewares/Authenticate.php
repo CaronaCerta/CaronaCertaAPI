@@ -4,8 +4,10 @@
  * Adding Middle Layer to authenticate every request
  * Checking if the request has valid api key in the 'Authorization' header
  */
-class Authenticate {
-    public function call(\Slim\Route $route) {
+class Authenticate
+{
+    public function call(\Slim\Route $route)
+    {
         // Getting request headers
         $response = array();
         $app = \Slim\Slim::getInstance();
@@ -13,27 +15,31 @@ class Authenticate {
 
         // Verifying Authorization Header
         if (isset($headers['Authorization'])) {
-            $userModel = new User();
-
             // get the api key
-            $api_key = $headers['Authorization'];
+            $key = $headers['Authorization'];
+
+            $session = Session::find(null, array('key' => $key));
             // validating api key
-            if (!$userModel->isValidApiKey($api_key)) {
+            if (!$session) {
                 // api key is not present in users table
                 $response['error'] = true;
-                $response['message'] = "Access Denied. Invalid Api key";
-                Response::echoRespnse(401, $response);
+                $response['message'] = 'Access Denied. Invalid key';
+                Response::echoResponse(401, $response);
                 $app->stop();
             } else {
                 global $user_id;
+
+                $session->updated_at = date(DATE_ATOM);
+                $session->save();
+
                 // get user primary key id
-                $user_id = $userModel->getUserId($api_key);
+                $user_id = $session->usuario->id_user;
             }
         } else {
             // api key is missing in header
             $response['error'] = true;
-            $response['message'] = "Api key is misssing";
-            Response::echoRespnse(400, $response);
+            $response['message'] = 'Key is missing';
+            Response::echoResponse(400, $response);
             $app->stop();
         }
     }

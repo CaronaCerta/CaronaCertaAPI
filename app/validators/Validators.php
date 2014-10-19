@@ -1,10 +1,12 @@
 <?php
 
-class Validators {
+class Validators
+{
     /**
      * Verifying required params posted or not
      */
-    public static function verifyRequiredParams($required_fields) {
+    public static function verifyRequiredParams($required_fields)
+    {
         $error = false;
         $error_fields = "";
         $request_params = array();
@@ -27,8 +29,8 @@ class Validators {
             $response = array();
             $app = \Slim\Slim::getInstance();
             $response['error'] = true;
-            $response['message'] = 'Campo obrigatório' . substr($error_fields, 0, -2) . ' faltando ou vazio';
-            Response::echoRespnse(400, $response);
+            $response['message'] = 'Campo obrigatï¿½rio' . substr($error_fields, 0, -2) . ' faltando ou vazio';
+            Response::echoResponse(400, $response);
             $app->stop();
         }
     }
@@ -36,23 +38,25 @@ class Validators {
     /**
      * Validating email address
      */
-    public static function validateEmail($email) {
+    public static function validateEmail($email)
+    {
         $app = \Slim\Slim::getInstance();
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $response['error'] = true;
-            $response['message'] = 'Endereço de e-mail inválido';
-            Response::echoRespnse(400, $response);
+            $response['message'] = 'Endereï¿½o de e-mail invï¿½lido';
+            Response::echoResponse(400, $response);
             $app->stop();
         }
     }
-    
-    public static function validateFunction($email) {
-    	$app = \Slim\Slim::getInstance();
-    	if (!filter_var($email, FILTER_VALIDATE_BOOLEAN)) {
-    		$response['error'] = true;
-    		$response['message'] = 'Função de usuário inválida';
-    		Response::echoRespnse(400, $response);
-    		$app->stop();
-    	}
+
+    public static function validateFunction($email)
+    {
+        $app = \Slim\Slim::getInstance();
+        if (!filter_var($email, FILTER_VALIDATE_BOOLEAN)) {
+            $response['error'] = true;
+            $response['message'] = 'Funï¿½ï¿½o de usuï¿½rio invï¿½lida';
+            Response::echoResponse(400, $response);
+            $app->stop();
+        }
     }
 } 

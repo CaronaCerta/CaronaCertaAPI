@@ -36,6 +36,6 @@ $app->post('/submit', function () use ($app) {
 	}
 	
 	// echo json response
-	Response::echoRespnse(201, $response);
+	Response::echoResponse(201, $response);
 		
 });
