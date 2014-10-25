@@ -1,34 +1,58 @@
 <?php
 
+use Swagger\Annotations as SWG;
+
 $app->post('/submit', function () use ($app) {
 	// check for required params
-	Validators::verifyRequiredParams(array('userId', 'password', 'otherUserId', 'otherUserFunction', 'caracteristica', 'rating'));
-	
-	// reading post params
-	$email = $app->request()->post('userId');
-	$password = $app->request()->post('password');
-	$otherUserId = $app->request()->post('otherUserId');
-	$otherUserFunction = $app->request()->post('otherUserFunction');
-	$caracteristica = $app->request()->post('caracteristica');
-	$rating = $app->request()->post('rating');
-	
+	Validators::verifyRequiredParams(array(
+		'id_carona',
+		'id_usuario_avaliador', 
+		'senha', 
+		'id_usuario_avaliado', 
+		'papel', 
+		'id_atributo', 
+		'nota'
+	));
+
+
 	Validators::validateEmail($email);
-	Validators::validateFunction($otherUserFunction);
+	Validators::validateFunction($role);
 	
-	$userModel = new User();
-	// check for correct email and password
-	if ($userModel->checkLogin($email, $password)) {
+	// create a new avaliacao
+	$avaliacao = new \Avaliacao(array(
+			'id_carona' => $app->request->post('id_carona'),
+			'id_usuario_avaliador' => $app->request->post('id_usuario_avaliador'),
+			'senha' => $app->request->post('senha'),
+			'id_usuario_avaliado' => $app->request->post('id_usuario_avaliado'),
+			'papel' => $app->request->post('papel'),
+			'id_atributo' => $app->request->post('id_atributo'),
+			'nota' => $app->request->post('nota')
+	));
+	
+	$userModel = new Usuario();
+	// TODO: check if user session is active
+	if (1==1) {
 		
-		$avaliacao = new Avaliacao();
-		$res = $avaliacao->createAvaliacao($email, $otherUserId, $otherUserFunction, $caracteristica, $rating);
-		
-		if ($res == AVAL_CREATED_SUCCESSFULLY) {
-			$response["error"] = false;
-			$response["message"] = "Avaliacao feita com sucesso";
-		} else if ($res == USER_CREATE_FAILED) {
+		// verifying if both user exists
+		$usuario_avaliador_count = Usuario::where('email', '=', $avaliacao->id_usuario_avaliador)->count();
+		$usuario_avaliado_count = Usuario::where('email', '=', $avaliacao->id_usuario_avaliado)->count();
+		if ($usuario_avaliador_count == 1 && $usuario_avaliado_count == 1){
+			$res = $avaliacao->save();
+			
+			if ($res) {
+				$code = 201;
+				$response['error'] = false;
+				$response['message'] = 'Avaliação feita com sucesso';
+			} elseif (!$res) {
+				$code = 200;
+				$response['error'] = true;
+				$response['message'] = 'Oops! Avaliação não registrada';
+			}
+		}
+		else{
 			$response["error"] = true;
-			$response["message"] = "Oops! Um erro ocorreu durante o registro";
-		} 
+			$response["message"] = "Oops! Avalição de usuário inválida";
+		}
 	} else {
 		// user credentials are wrong
 		$response['error'] = true;
@@ -36,6 +60,6 @@ $app->post('/submit', function () use ($app) {
 	}
 	
 	// echo json response
-	Response::echoResponse(201, $response);
+	Response::echoResponse($code, $response);
 		
 });

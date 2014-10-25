@@ -6,7 +6,7 @@ class Avaliacao extends \Illuminate\Database\Eloquent\Model
     protected $table = 'usuario';
 
     protected $fillable = array(
-        'ic_atributo',
+        'id_atributo',
         'id_carona',
         'id_usuario_avaliador',
         'id_usuario_avaliado',
@@ -38,4 +38,5 @@ class Avaliacao extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo('Usuario', 'id_usuario_avaliado', 'id_usuario');
     }
+    
 } 
