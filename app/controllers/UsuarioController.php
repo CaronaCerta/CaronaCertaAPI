@@ -6,7 +6,7 @@ use Swagger\Annotations as SWG;
  * User Registration
  * url - /usuario
  * method - POST
- * params - username, email, senha, nome, data_nascimento, telefone, endereco, cidade
+ * params - email, senha, nome, data_nascimento, telefone, endereco, cidade
  */
 $app->post('/', function () use ($app) {
     $response = array();
@@ -14,7 +14,6 @@ $app->post('/', function () use ($app) {
 
     // check for required params
     Validators::verifyRequiredParams(array(
-        'username',
         'email',
         'senha',
         'nome',
@@ -26,7 +25,6 @@ $app->post('/', function () use ($app) {
 
     // create a new usuario
     $usuario = new \Usuario(array(
-        'username' => $app->request->post('username'),
         'email' => $app->request->post('email'),
         'senha' => PassHash::hash($app->request->post('senha')),
         'nome' => $app->request->post('nome'),
@@ -42,9 +40,7 @@ $app->post('/', function () use ($app) {
     // verifying if user exists
     $usuario_email_count = Usuario::where('email', '=', $usuario->email)->count();
 
-    $usuario_username_count = Usuario::where('username', '=', $usuario->username)->count();
-
-    if ($usuario_email_count == 0 && $usuario_username_count == 0) {
+    if ($usuario_email_count == 0) {
         $res = $usuario->save();
 
         if ($res) {
@@ -68,10 +64,6 @@ $app->post('/', function () use ($app) {
         $code = 200;
         $response["error"] = true;
         $response["message"] = 'Desculpe, esse e-mail ja esta no sistema';
-    } elseif ($usuario_username_count > 0) {
-        $code = 200;
-        $response["error"] = true;
-        $response["message"] = 'Desculpe, esse username ja esta no sistema';
     }
 
     // echo json response
