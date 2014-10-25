@@ -13,7 +13,6 @@ DROP TABLE IF EXISTS `carona_certa`.`usuario` ;
 
 CREATE TABLE IF NOT EXISTS `carona_certa`.`usuario` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(128) NULL,
   `email` VARCHAR(255) NULL,
   `senha` VARCHAR(255) NULL,
   `nome` VARCHAR(1024) NULL,
