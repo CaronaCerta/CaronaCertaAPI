@@ -1,7 +1,7 @@
 default:
     context:
         parameters:
-            base_url: http://localhost
+            base_url: http://localhost/CaronaCerta/CaronaCertaAPI
     paths:
       features: %behat.paths.base%/app/tests/features
       bootstrap: %behat.paths.features%/bootstrap
