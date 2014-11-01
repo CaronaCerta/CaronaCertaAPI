@@ -5,7 +5,7 @@ services:
   - mysql
 
 before_script:
-  - composer install
+  - ./composer.phar install
   # db setup
   - mysql < ./sql/carona_certa.sql
 
