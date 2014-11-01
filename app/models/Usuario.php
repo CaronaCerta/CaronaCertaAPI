@@ -4,6 +4,7 @@ class Usuario extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'usuario';
+    protected $primaryKey = 'id_usuario';
 
     protected $fillable = array(
         'email',

@@ -3,7 +3,8 @@
 class Carona extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $table = 'usuario';
+    protected $table = 'carona';
+    protected $primaryKey = 'id_carona';
 
     protected $fillable = array(
         'id_carro',

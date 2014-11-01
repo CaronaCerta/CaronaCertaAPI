@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `carona_certa`.`usuario` (
   `updated_at` DATE NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `id_usuario_UNIQUE` (`id_usuario` ASC),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8
@@ -100,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `carona_certa`.`carona` (
   PRIMARY KEY (`id_carona`),
   INDEX `fk_carona_carro_idx` (`id_carro` ASC),
   UNIQUE INDEX `id_carona_UNIQUE` (`id_carona` ASC),
-  CONSTRAINT `fk_carona_carro1`
+  CONSTRAINT `fk_carona_carro`
   FOREIGN KEY (`id_carro`)
   REFERENCES `carona_certa`.`carro` (`id_carro`)
     ON DELETE NO ACTION
@@ -125,12 +124,12 @@ CREATE TABLE IF NOT EXISTS `carona_certa`.`passageiro` (
   INDEX `fk_passageiro_carona_idx` (`id_carona` ASC),
   INDEX `fk_passageiro_usuario_idx` (`id_usuario` ASC),
   UNIQUE INDEX `id_passageiro_UNIQUE` (`id_passageiro` ASC),
-  CONSTRAINT `fk_passageiro_carona1`
+  CONSTRAINT `fk_passageiro_carona`
   FOREIGN KEY (`id_carona`)
   REFERENCES `carona_certa`.`carona` (`id_carona`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_passageiro_usuario1`
+  CONSTRAINT `fk_passageiro_usuario`
   FOREIGN KEY (`id_usuario`)
   REFERENCES `carona_certa`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
@@ -184,17 +183,17 @@ CREATE TABLE IF NOT EXISTS `carona_certa`.`avaliacao` (
   REFERENCES `carona_certa`.`atributo` (`id_atributo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_avaliacao_carona1`
+  CONSTRAINT `fk_avaliacao_carona`
   FOREIGN KEY (`id_carona`)
   REFERENCES `carona_certa`.`carona` (`id_carona`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_avaliacao_usuario1`
+  CONSTRAINT `fk_avaliacao_usuario_avaliador`
   FOREIGN KEY (`id_usuario_avaliador`)
   REFERENCES `carona_certa`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_avaliacao_usuario2`
+  CONSTRAINT `fk_avaliacao_usuario_avaliado`
   FOREIGN KEY (`id_usuario_avaliado`)
   REFERENCES `carona_certa`.`usuario` (`id_usuario`)
     ON DELETE NO ACTION
@@ -218,10 +217,10 @@ CREATE TABLE IF NOT EXISTS `carona_certa`.`session` (
   PRIMARY KEY (`id_session`),
   INDEX `fk_session_usuario_idx` (`id_usuario` ASC),
   UNIQUE INDEX `id_session_UNIQUE` (`id_session` ASC),
-  CONSTRAINT `fk_session_usuario1`
+  CONSTRAINT `fk_session_usuario`
   FOREIGN KEY (`id_usuario`)
   REFERENCES `carona_certa`.`usuario` (`id_usuario`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
   ENGINE = InnoDB;
 

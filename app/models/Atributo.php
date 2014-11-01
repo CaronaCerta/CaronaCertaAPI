@@ -4,6 +4,7 @@ class Atributo extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'atributo';
+    protected $primaryKey = 'id_atributo';
 
     protected $fillable = array(
         'nome',

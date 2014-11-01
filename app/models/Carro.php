@@ -4,6 +4,7 @@ class Carro extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'carro';
+    protected $primaryKey = 'id_carro';
 
     protected $fillable = array(
         'modelo',

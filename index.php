@@ -7,8 +7,6 @@ $app = new \Slim\Slim();
 // User id from db - Global Variable
 $user_id = NULL;
 
-use Swagger\Annotations as SWG;
-
 $app->group('/usuario', function () use ($app) {
     require './app/controllers/UsuarioController.php';
 });

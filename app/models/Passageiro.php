@@ -4,6 +4,7 @@ class Passageiro extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'passageiro';
+    protected $primaryKey = 'id_passageiro';
 
     protected $fillable = array(
         'id_usuario',

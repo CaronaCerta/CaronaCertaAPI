@@ -1,7 +1,5 @@
 <?php
 
-use Swagger\Annotations as SWG;
-
 $app->post('/submit', function () use ($app) {
 	// check for required params
 	Validators::verifyRequiredParams(array(
@@ -42,16 +40,16 @@ $app->post('/submit', function () use ($app) {
 			if ($res) {
 				$code = 201;
 				$response['error'] = false;
-				$response['message'] = 'Avaliação feita com sucesso';
+				$response['message'] = 'Avaliaï¿½ï¿½o feita com sucesso';
 			} elseif (!$res) {
 				$code = 200;
 				$response['error'] = true;
-				$response['message'] = 'Oops! Avaliação não registrada';
+				$response['message'] = 'Oops! Avaliaï¿½ï¿½o nï¿½o registrada';
 			}
 		}
 		else{
 			$response["error"] = true;
-			$response["message"] = "Oops! Avalição de usuário inválida";
+			$response["message"] = "Oops! Avaliï¿½ï¿½o de usuï¿½rio invï¿½lida";
 		}
 	} else {
 		// user credentials are wrong

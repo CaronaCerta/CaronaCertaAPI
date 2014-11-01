@@ -4,6 +4,7 @@ class Motorista extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'motorista';
+    protected $primaryKey = 'id_motorista';
 
     protected $fillable = array(
         'numero_habilitacao',

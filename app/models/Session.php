@@ -4,6 +4,7 @@ class Session extends \Illuminate\Database\Eloquent\Model
 {
 
     protected $table = 'session';
+    protected $primaryKey = 'id_session';
 
     protected $fillable = array(
         'key',

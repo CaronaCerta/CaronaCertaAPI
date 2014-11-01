@@ -1,8 +1,13 @@
 <?php
 
-use Behat\Behat\Context\BehatContext;
-use Symfony\Component\Yaml\Yaml;
-use GuzzleHttp\Client;
+
+use Behat\Behat\Context\BehatContext,
+    Behat\Behat\Event\SuiteEvent,
+    Behat\Behat\Event\ScenarioEvent,
+    GuzzleHttp\Client;
+
+
+require 'vendor/autoload.php';
 
 //
 // Require 3rd-party libraries here:
@@ -38,14 +43,40 @@ class RestContext extends BehatContext
         $this->_parameters = $parameters;
     }
 
+    /**
+     * @BeforeSuite
+     */
+    public static function beforeSuite(SuiteEvent $event)
+    {
+        RestContext::cleanDB();
+    }
+
+    /**
+     * @AfterScenario
+     */
+    public function afterScenario(ScenarioEvent $event)
+    {
+        RestContext::cleanDB();
+    }
+
+    public static function cleanDB()
+    {
+        Session::where('id_session', '>', '0')->delete();
+        Avaliacao::where('id_avaliacao', '>', '0')->delete();
+        Atributo::where('id_atributo', '>', '0')->delete();
+        Passageiro::where('id_passageiro', '>', '0')->delete();
+        Carona::where('id_carona', '>', '0')->delete();
+        Carro::where('id_carro', '>', '0')->delete();
+        Motorista::where('id_motorista', '>', '0')->delete();
+        Usuario::where('id_usuario', '>', '0')->delete();
+    }
+
+
     public function getParameter($name)
     {
         if (count($this->_parameters) === 0) {
-
-
             throw new \Exception('Parameters not loaded!');
         } else {
-
             $parameters = $this->_parameters;
             return (isset($parameters[$name])) ? $parameters[$name] : null;
         }
@@ -74,6 +105,14 @@ class RestContext extends BehatContext
         }
 
         return $data;
+    }
+
+    public function buildPageUrl($pageUrl)
+    {
+        return preg_replace_callback('/\{([^\{]*)\}/',  function ($match) {
+            $data = json_decode($this->_response->getBody(true));
+            return $this->getObjectParameter($match[1], $data);
+        }, $pageUrl);
     }
 
     /**
@@ -118,9 +157,7 @@ class RestContext extends BehatContext
      */
     public function thatTheItsIs($propertyName, $propertyValue)
     {
-        $this->_restObject->$propertyName = strtr($propertyValue, [
-            '%str_rand' => substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 15),
-        ]);
+        $this->_restObject->$propertyName = $propertyValue;
     }
 
     /**
@@ -128,6 +165,7 @@ class RestContext extends BehatContext
      */
     public function iRequest($pageUrl)
     {
+        $pageUrl = $this->buildPageUrl($pageUrl);
         $baseUrl = $this->getParameter('base_url');
         $this->_requestUrl = $baseUrl . $pageUrl;
 
@@ -142,6 +180,7 @@ class RestContext extends BehatContext
                     ->put($this->_requestUrl, [
                         'body' => $putFields,
                     ]);
+                break;
             case 'POST':
                 $postFields = (array)$this->_restObject;
                 $response = $this->_client

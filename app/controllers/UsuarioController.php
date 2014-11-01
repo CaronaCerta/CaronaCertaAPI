@@ -1,6 +1,54 @@
 <?php
 
-use Swagger\Annotations as SWG;
+/**
+ * User List
+ * url - /usuario
+ * method - GET
+ * params - none
+ */
+$app->get('/', function () use ($app) {
+    $response = array();
+
+    $usuarios = Usuario::all();
+    if ($usuarios) {
+        $code = 200;
+        $response['error'] = false;
+        $response['message'] = 'Listagem feita com sucesso';
+        $response['usuarios'] = $usuarios->toArray();
+    } else {
+        $code = 500;
+        $response['error'] = true;
+        $response['message'] = 'Erro ao recuperar os usuarios';
+    }
+
+    // echo json response
+    Response::echoResponse($code, $response);
+});
+
+/**
+ * User Get
+ * url - /usuario
+ * method - GET
+ * params - id
+ */
+$app->get('/:id', function ($id) use ($app) {
+    $response = array();
+
+    $usuario = Usuario::find($id);
+    if ($usuario) {
+        $code = 200;
+        $response['error'] = false;
+        $response['message'] = 'Usuario obtido com sucesso';
+        $response['usuario'] = $usuario->toArray();
+    } else {
+        $code = 500;
+        $response['error'] = true;
+        $response['message'] = 'Erro ao recuperar o usuario';
+    }
+
+    // echo json response
+    Response::echoResponse($code, $response);
+});
 
 /**
  * User Registration
@@ -46,7 +94,7 @@ $app->post('/', function () use ($app) {
         if ($res) {
             $session = new \Session(array(
                 'key' => Session::generateKey(),
-                'id_usuario' => $usuario->id,
+                'id_usuario' => $usuario->id_usuario,
             ));
             $session->save();
 
@@ -62,8 +110,102 @@ $app->post('/', function () use ($app) {
         }
     } elseif ($usuario_email_count > 0) {
         $code = 200;
-        $response["error"] = true;
-        $response["message"] = 'Desculpe, esse e-mail ja esta no sistema';
+        $response['error'] = true;
+        $response['message'] = 'Desculpe, esse e-mail ja esta no sistema';
+    }
+
+    // echo json response
+    Response::echoResponse($code, $response);
+});
+
+/**
+ * User Edition
+ * url - /usuario
+ * method - POST
+ * params - email, senha, nome, data_nascimento, telefone, endereco, cidade
+ */
+$app->put('/:id', function ($id) use ($app) {
+    $response = array();
+    $code = 200;
+
+    $usuario = Usuario::find($id);
+
+    if ($usuario) {
+        // check for required params
+        Validators::verifyRequiredParams(array(
+            'email',
+            'senha',
+            'nome',
+            'data_nascimento',
+            'telefone',
+            'endereco',
+            'cidade',
+        ));
+
+        // edit usuario
+        $usuario->email = $app->request->post('email');
+        $usuario->senha = $app->request->post('senha');
+        $usuario->nome = $app->request->post('nome');
+        $usuario->data_nascimento = $app->request->post('data_nascimento');
+        $usuario->telefone = $app->request->post('telefone');
+        $usuario->endereco = $app->request->post('endereco');
+        $usuario->cidade = $app->request->post('cidade');
+
+        // validating email address
+        Validators::validateEmail($usuario->email);
+
+        $res = $usuario->save();
+
+        if ($res) {
+            $code = 200;
+            $response['error'] = false;
+            $response['message'] = 'Registro alterado com sucesso';
+            $response['usuario'] = $usuario->toArray();
+        } elseif (!$res) {
+            $code = 200;
+            $response['error'] = true;
+            $response['message'] = 'Oops! Um erro ocorreu durante o registro';
+        }
+
+    }
+    else {
+        $code = 200;
+        $response['error'] = true;
+        $response['message'] = 'Desculpe, esse usuario nao esta no sistema';
+    }
+
+    // echo json response
+    Response::echoResponse($code, $response);
+});
+
+/**
+ * User Deletion
+ * url - /usuario
+ * method - DELETE
+ * params - id
+ */
+$app->delete('/:id', function ($id) use ($app) {
+    $response = array();
+
+    $usuario = Usuario::find($id);
+
+    if ($usuario) {
+        $return = $usuario->delete();
+        if ($return) {
+            $code = 200;
+            $response['error'] = false;
+            $response['message'] = 'Usuario deletado com sucesso';
+        } else {
+            $code = 500;
+            $response['error'] = true;
+            $response['message'] = 'Usuario nao removido';
+        }
+
+
+    } else {
+        $code = 200;
+        $response['error'] = true;
+        $response['message'] = 'Erro ao recuperar o usuario';
     }
 
     // echo json response

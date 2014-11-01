@@ -3,7 +3,8 @@
 class Avaliacao extends \Illuminate\Database\Eloquent\Model
 {
 
-    protected $table = 'usuario';
+    protected $table = 'avaliacao';
+    protected $primaryKey = 'id_avaliacao';
 
     protected $fillable = array(
         'id_atributo',
