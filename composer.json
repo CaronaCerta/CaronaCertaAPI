@@ -1,6 +1,6 @@
 {
   "require": {
-    "php": ">= 5.3.7",
+    "php": ">= 5.4",
     "slim/slim": "2.4.*",
     "illuminate/database": "4.2.*",
     "ircmaxell/password-compat": "1.0.*"
