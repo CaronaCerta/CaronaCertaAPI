@@ -5,6 +5,13 @@
     "illuminate/database": "4.2.*",
     "ircmaxell/password-compat": "1.0.*"
   },
+  "require-dev": {
+    "behat/behat": "2.4.*@stable",
+    "guzzlehttp/guzzle": "5.0.*"
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
   "autoload": {
     "files": [
       "app/config.php",
