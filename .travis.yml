@@ -5,6 +5,12 @@ services:
   - mysql
 
 before_script:
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+
+  - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
+  - sudo /etc/init.d/apache2 restart
+
   - rm -R vendor/
   - rm composer.lock
   - ./composer.phar install
@@ -13,6 +19,7 @@ before_script:
 
 script:
   - echo "Building"
+  - export BEHAT_PARAMS="context[parameters][base_url]=http://localhost"
   - ./bin/behat
 
 deploy:
