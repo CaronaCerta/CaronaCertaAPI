@@ -1,7 +1,10 @@
 <?php
 
+use Swagger\Annotations as SWG;
+
 $app->post('/submit', function () use ($app) {
-	// check for required params
+	$response = array();
+	//check for required params
 	Validators::verifyRequiredParams(array(
 		'id_carona',
 		'id_usuario_avaliador', 
@@ -40,16 +43,16 @@ $app->post('/submit', function () use ($app) {
 			if ($res) {
 				$code = 201;
 				$response['error'] = false;
-				$response['message'] = 'Avaliaï¿½ï¿½o feita com sucesso';
+				$response['message'] = 'Avaliação feita com sucesso';
 			} elseif (!$res) {
 				$code = 200;
 				$response['error'] = true;
-				$response['message'] = 'Oops! Avaliaï¿½ï¿½o nï¿½o registrada';
+				$response['message'] = 'Oops! Avaliação não registrada';
 			}
 		}
 		else{
 			$response["error"] = true;
-			$response["message"] = "Oops! Avaliï¿½ï¿½o de usuï¿½rio invï¿½lida";
+			$response["message"] = "Oops! Avaliação de usuário inválida";
 		}
 	} else {
 		// user credentials are wrong
@@ -61,3 +64,23 @@ $app->post('/submit', function () use ($app) {
 	Response::echoResponse($code, $response);
 		
 });
+
+
+$app->post('/getAvaliacoes', function () use ($app) {
+		$response = array();
+		// check for required params
+		Validators::verifyRequiredParams(array(
+		'id_usuario',
+				));
+	
+		$avaliacoes = Avaliacao::where('id_usuario_avaliado', '=', $app->request->post('id_usuario'));
+		
+		$response['error'] = false;
+		$response['avaliacoes'] = $avaliacoes;
+		$response['qtd'] = $avaliacoes->count();
+
+		// echo json response
+		Response::echoResponse($code, $response);
+		
+});
+	
