@@ -1,7 +1,10 @@
 <?php
 
+use Swagger\Annotations as SWG;
+
 $app->post('/submit', function () use ($app) {
-	// check for required params
+	$response = array();
+	//check for required params
 	Validators::verifyRequiredParams(array(
 		'id_carona',
 		'id_usuario_avaliador', 
@@ -61,3 +64,23 @@ $app->post('/submit', function () use ($app) {
 	Response::echoResponse($code, $response);
 		
 });
+
+
+$app->post('/getAvaliacoes', function () use ($app) {
+		$response = array();
+		// check for required params
+		Validators::verifyRequiredParams(array(
+		'id_usuario',
+				));
+	
+		$avaliacoes = Avaliacao::where('id_usuario_avaliado', '=', $app->request->post('id_usuario'));
+		
+		$response['error'] = false;
+		$response['avaliacoes'] = $avaliacoes;
+		$response['qtd'] = $avaliacoes->count();
+
+		// echo json response
+		Response::echoResponse($code, $response);
+		
+});
+	
