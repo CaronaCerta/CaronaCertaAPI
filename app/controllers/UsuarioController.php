@@ -41,7 +41,7 @@ $app->get('/:id', function ($id) use ($app) {
         $response['message'] = 'Usuario obtido com sucesso';
         $response['usuario'] = $usuario->toArray();
     } else {
-        $code = 500;
+        $code = 404;
         $response['error'] = true;
         $response['message'] = 'Erro ao recuperar o usuario';
     }
@@ -104,7 +104,7 @@ $app->post('/', function () use ($app) {
             $response['session'] = $session->toArray();
             $response['usuario'] = $usuario->toArray();
         } elseif (!$res) {
-            $code = 200;
+            $code = 500;
             $response['error'] = true;
             $response['message'] = 'Oops! Um erro ocorreu durante o registro';
         }
@@ -162,14 +162,14 @@ $app->put('/:id', function ($id) use ($app) {
             $response['message'] = 'Registro alterado com sucesso';
             $response['usuario'] = $usuario->toArray();
         } elseif (!$res) {
-            $code = 200;
+            $code = 500;
             $response['error'] = true;
             $response['message'] = 'Oops! Um erro ocorreu durante o registro';
         }
 
     }
     else {
-        $code = 200;
+        $code = 404;
         $response['error'] = true;
         $response['message'] = 'Desculpe, esse usuario nao esta no sistema';
     }
@@ -203,7 +203,7 @@ $app->delete('/:id', function ($id) use ($app) {
 
 
     } else {
-        $code = 200;
+        $code = 404;
         $response['error'] = true;
         $response['message'] = 'Erro ao recuperar o usuario';
     }

@@ -23,7 +23,7 @@ Feature: Testing the Usuario
     And the "usuario.cidade" property equals "test"
     Then the response status code should be 201
 
-  Scenario: Editing a Usuario
+  Scenario: Editing an Usuario
     Given that I want to make a new "Usuario"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"
@@ -55,7 +55,7 @@ Feature: Testing the Usuario
     And the "usuario.cidade" property equals "test2"
     Then the response status code should be 200
 
-  Scenario: Deleting a Usuario
+  Scenario: Deleting an Usuario
     Given that I want to make a new "Usuario"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"

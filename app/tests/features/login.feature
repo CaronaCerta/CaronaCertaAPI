@@ -1,6 +1,6 @@
 Feature: Testing the Login feature
 
-  Scenario: Throws a error when tries to login with an Usuario
+  Scenario: Throws an error when tries to login with an Usuario that does not exist
     Given that I want to make a new "Login"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"
@@ -9,10 +9,19 @@ Feature: Testing the Login feature
     Then the response is JSON
     And the response has a "error" property
     And the "error" property equals "true"
-    Then the response status code should be 200
+    Then the response status code should be 404
 
-  Scenario: Login in with a Usuario
-    Given that I want to make a new "Usuario"
+  Scenario: Throws an error when tries to login without all the fields
+    Given that I want to make a new "Login"
+    When I request "/login"
+    #Then echo last response
+    Then the response is JSON
+    And the response has a "error" property
+    And the "error" property equals "true"
+    Then the response status code should be 400
+
+  Scenario: Login with an Usuario
+    Given that I want to make a new "Login"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"
     And that its "nome" is "test"
@@ -33,4 +42,12 @@ Feature: Testing the Login feature
     And the "error" property equals "false"
     And the response has a "session" property
     And the response has a "usuario" property
+    Then the response status code should be 200
+
+    Given that I want to delete a "Login"
+    When I request "/login/{session.id_session}"
+    #Then echo last response
+    Then the response is JSON
+    And the response has a "error" property
+    And the "error" property equals "false"
     Then the response status code should be 200

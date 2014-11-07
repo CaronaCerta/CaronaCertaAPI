@@ -4,7 +4,8 @@
 use Behat\Behat\Context\BehatContext,
     Behat\Behat\Event\SuiteEvent,
     Behat\Behat\Event\ScenarioEvent,
-    GuzzleHttp\Client;
+    GuzzleHttp\Client,
+    GuzzleHttp\Exception\BadResponseException;
 
 
 require 'vendor/autoload.php';
@@ -116,7 +117,7 @@ class RestContext extends BehatContext
     }
 
     /**
-     * @Given /^that I want to make a new "([^"]*)"$/
+     * @Given /^that I want to make a([^"]*) new "([^"]*)"$/
      */
     public function thatIWantToMakeANew($objectType)
     {
@@ -169,31 +170,37 @@ class RestContext extends BehatContext
         $baseUrl = $this->getParameter('base_url');
         $this->_requestUrl = $baseUrl . $pageUrl;
 
-        switch (strtoupper($this->_restObjectMethod)) {
-            case 'GET':
-                $response = $this->_client
-                    ->get($this->_requestUrl . '?' . http_build_query((array)$this->_restObject));
-                break;
-            case 'PUT':
-                $putFields = (array)$this->_restObject;
-                $response = $this->_client
-                    ->put($this->_requestUrl, [
-                        'body' => $putFields,
-                    ]);
-                break;
-            case 'POST':
-                $postFields = (array)$this->_restObject;
-                $response = $this->_client
-                    ->post($this->_requestUrl, [
-                        'body' => $postFields,
-                    ]);
-                break;
-            case 'DELETE':
-                $response = $this->_client
-                    ->delete($this->_requestUrl . '?' . http_build_query((array)$this->_restObject));
-                break;
+        try {
+            switch (strtoupper($this->_restObjectMethod)) {
+                case 'GET':
+                    $response = $this->_client
+                        ->get($this->_requestUrl . '?' . http_build_query((array)$this->_restObject));
+                    break;
+                case 'PUT':
+                    $putFields = (array)$this->_restObject;
+                    $response = $this->_client
+                        ->put($this->_requestUrl, [
+                            'body' => $putFields,
+                        ]);
+                    break;
+                case 'POST':
+                    $postFields = (array)$this->_restObject;
+                    $response = $this->_client
+                        ->post($this->_requestUrl, [
+                            'body' => $postFields,
+                        ]);
+                    break;
+                case 'DELETE':
+                    $response = $this->_client
+                        ->delete($this->_requestUrl . '?' . http_build_query((array)$this->_restObject));
+                    break;
+            }
+            $this->_response = $response;
         }
-        $this->_response = $response;
+        catch (BadResponseException $e) {
+            $this->_response = $e->getResponse();
+        }
+
     }
 
     /**
