@@ -43,16 +43,16 @@ $app->post('/submit', function () use ($app) {
 			if ($res) {
 				$code = 201;
 				$response['error'] = false;
-				$response['message'] = 'Avaliaï¿½ï¿½o feita com sucesso';
+				$response['message'] = 'Avaliação feita com sucesso';
 			} elseif (!$res) {
 				$code = 200;
 				$response['error'] = true;
-				$response['message'] = 'Oops! Avaliaï¿½ï¿½o nï¿½o registrada';
+				$response['message'] = 'Oops! Avaliação não registrada';
 			}
 		}
 		else{
 			$response["error"] = true;
-			$response["message"] = "Oops! Avaliï¿½ï¿½o de usuï¿½rio invï¿½lida";
+			$response["message"] = "Oops! Avaliação de usuário inválida";
 		}
 	} else {
 		// user credentials are wrong
