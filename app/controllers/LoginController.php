@@ -6,6 +6,16 @@
  * method - POST
  * params - email, senha
  */
+/**
+ * @api {get} /login User Login
+ * @apiName Login
+ * @apiGroup Login
+ *
+ * @apiParam {String} email Email do usuario
+ * @apiParam {String} senha Senha do usuario
+ *
+ * @apiSuccess {Array} result with session and usuario.
+ */
 $app->post('/', function () use ($app) {
     $code = 200;
     $response = array();

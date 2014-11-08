@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "test": "./bin/behat",
+    "docs": "apidoc -i app/controllers/ -o docs/"
+  },
   "require": {
     "php": ">= 5.4",
     "slim/slim": "2.4.*",

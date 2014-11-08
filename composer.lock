@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c466ea4ef0e5768a77a67581a41780a3",
+    "hash": "ac0d499e2740ea84c636d78dbde59ea3",
     "packages": [
         {
             "name": "illuminate/container",

@@ -1,0 +1,16 @@
+{
+  "name": "carona-certa",
+  "version": "0.1.0",
+  "description": "Carona Certa API documentation",
+  "apidoc": {
+    "title": "Carona Certa",
+    "url" : "https://caronacerta-rodrigoeg.rhcloud.com"
+  },
+  "devDependencies": {
+    "apidoc": "0.5.0"
+  },
+  "scripts": {
+    "test": "./bin/behat",
+    "docs": "apidoc -i app/controllers/ -o docs/"
+  }
+}
