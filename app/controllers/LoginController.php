@@ -1,12 +1,6 @@
 <?php
 
 /**
- * User Login
- * url - /login
- * method - POST
- * params - email, senha
- */
-/**
  * @api {get} /login User Login
  * @apiName Login
  * @apiGroup Login
@@ -14,7 +8,43 @@
  * @apiParam {String} email Email do usuario
  * @apiParam {String} senha Senha do usuario
  *
- * @apiSuccess {Array} result with session and usuario.
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {Array} session with session object.
+ * @apiSuccess {Array} usuario with usuario object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "session": {
+ *              "key": "52940b45d3a70139e0e45221e7d753c4",
+ *              "id_usuario": "5",
+ *              "updated_at": "2014-11-14 22:24:16",
+ *              "created_at": "2014-11-14 22:24:16",
+ *              "id_session": 7
+ *          },
+ *          "usuario": {
+ *              "id_usuario": "5",
+ *              "email": "test@test.com",
+ *              "nome": "test",
+ *              "data_nascimento": "1990-10-10",
+ *              "telefone": "3333-3333",
+ *              "endereco": "test",
+ *              "cidade": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": true,
+ *       "message": "Login falhou. Credenciais incorretas"
+ *     }
  */
 $app->post('/', function () use ($app) {
     $code = 200;
@@ -61,15 +91,36 @@ $app->post('/', function () use ($app) {
 });
 
 /**
- * User logout
- * url - /login
- * method - DELETE
- * params - id
+ * @api {delete} /login User logout
+ * @apiName Logout
+ * @apiGroup Login
+ *
+ * @apiParam {String} key The session key
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An error message explaining the error.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Logout feito com sucesso"
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *      HTTP/1.1 404 Not Found
+ *      {
+ *          "error": true,
+ *          "message": "Sessão não contrada"
+ *      }
  */
-$app->delete('/:id', function ($id) use ($app) {
+$app->delete('/:id', function ($key) use ($app) {
     $response = array();
 
-    $session = Session::find($id);
+    $session = Session::where('key', '=', $key)->first();
 
     if ($session) {
         $return = $session->delete();

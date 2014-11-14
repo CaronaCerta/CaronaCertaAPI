@@ -45,7 +45,7 @@ Feature: Testing the Login feature
     Then the response status code should be 200
 
     Given that I want to delete a "Login"
-    When I request "/login/{session.id_session}"
+    When I request "/login/{session.key}"
     #Then echo last response
     Then the response is JSON
     And the response has a "error" property

@@ -24,7 +24,9 @@ php:
 
 script:
   - echo "Building"
-#  - ./bin/behat
+#  - npm test
+  - npm install -g apidoc
+  - npm run -script docs
 
 deploy:
   provider: openshift
