@@ -16,5 +16,18 @@ $app->group('/login', function () use ($app) {
 $app->group('/avaliacao', array(new Authenticate(), 'call'), function () use ($app) {
     require './app/controllers/AvaliacaoController.php';
 });
+$app->group('/carona', array(new Authenticate(), 'call'), function () use ($app) {
+	require './app/controllers/CaronaController.php';
+});
+/*$app->group('/carro', array(new Authenticate(), 'call'), function () use ($app) {
+	require './app/controllers/CarroController.php';
+});
+$app->group('/motorista', array(new Authenticate(), 'call'), function () use ($app) {
+	require './app/controllers/MotoristaController.php';
+});
+$app->group('/passageiro', array(new Authenticate(), 'call'), function () use ($app) {
+	require './app/controllers/PassageiroController.php';
+});
+*/
 
 $app->run();
