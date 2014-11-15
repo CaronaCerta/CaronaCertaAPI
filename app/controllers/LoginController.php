@@ -91,7 +91,7 @@ $app->post('/', function () use ($app) {
 });
 
 /**
- * @api {delete} /login User logout
+ * @api {delete} /login/:key User Logout
  * @apiName Logout
  * @apiGroup Login
  *
@@ -117,7 +117,7 @@ $app->post('/', function () use ($app) {
  *          "message": "Sessão não contrada"
  *      }
  */
-$app->delete('/:id', function ($key) use ($app) {
+$app->delete('/:key', function ($key) use ($app) {
     $response = array();
 
     $session = Session::where('key', '=', $key)->first();
