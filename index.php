@@ -19,9 +19,10 @@ $app->group('/avaliacao', array(new Authenticate(), 'call'), function () use ($a
 $app->group('/carona', array(new Authenticate(), 'call'), function () use ($app) {
 	require './app/controllers/CaronaController.php';
 });
-/*$app->group('/carro', array(new Authenticate(), 'call'), function () use ($app) {
-	require './app/controllers/CarroController.php';
+$app->group('/carro', array(new Authenticate(), 'call'), function () use ($app) {
+    require './app/controllers/CarroController.php';
 });
+/*
 $app->group('/motorista', array(new Authenticate(), 'call'), function () use ($app) {
 	require './app/controllers/MotoristaController.php';
 });

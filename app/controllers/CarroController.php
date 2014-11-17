@@ -185,12 +185,6 @@ $app->get('/:id', function ($id) use ($app) {
  *       "error": true,
  *       "message": "Desculpe, esse e-mail ja esta no sistema"
  *     }
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "error": true,
- *       "message": "Campo obrigatório email, senha, nome, data_nascimento, telefone, endereco, cidade faltando ou vazio"
- *     }
  */
 $app->post('/', function () use ($app) {
     $response = array();
