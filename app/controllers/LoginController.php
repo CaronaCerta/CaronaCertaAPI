@@ -97,6 +97,11 @@ $app->post('/', function () use ($app) {
  *
  * @apiParam {String} key The session key
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An error message explaining the error.
  *
@@ -117,7 +122,7 @@ $app->post('/', function () use ($app) {
  *          "message": "Sessão não contrada"
  *      }
  */
-$app->delete('/:key', function ($key) use ($app) {
+$app->delete('/:key', array(new Authenticate(), 'call'), function ($key) use ($app) {
     $response = array();
 
     $session = Session::where('key', '=', $key)->first();

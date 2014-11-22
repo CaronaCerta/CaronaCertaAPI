@@ -5,6 +5,11 @@
  * @apiName GetCarros
  * @apiGroup Carro
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
  * @apiSuccess {Array} carros with a list of carros object.
@@ -68,6 +73,11 @@ $app->get('/', function () use ($app) {
  *
  * @apiParam {String} id The id of the carro
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
  * @apiSuccess {Array} carro with the carro object.
@@ -124,6 +134,11 @@ $app->get('/:id', function ($id) use ($app) {
  * @apiParam {String} modelo The modelo of the carro
  * @apiParam {String} descricao The descricao of the carro
  * @apiParam {String} id_motorista The ID of the motorista
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
  *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
@@ -206,6 +221,10 @@ $app->post('/', function () use ($app) {
  * @apiParam {String} descricao The descricao of the carro
  * @apiParam {String} id_motorista The ID of the motorista
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
  *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
@@ -292,6 +311,11 @@ $app->put('/:id', function ($id) use ($app) {
  * @apiGroup Carro
  *
  * @apiParam {String} id The id of the carro
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
  *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.

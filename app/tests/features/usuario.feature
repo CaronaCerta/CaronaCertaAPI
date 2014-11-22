@@ -35,6 +35,7 @@ Feature: Testing the Usuario
     When I request "/usuario"
 
     Given that I want to edit a "Usuario"
+    And that its authorization is "{session.key}"
     And that its "email" is "test2@test.com"
     And that its "senha" is "test2"
     And that its "nome" is "test2"
@@ -67,6 +68,7 @@ Feature: Testing the Usuario
     When I request "/usuario"
 
     Given that I want to delete a "Usuario"
+    And that its authorization is "{session.key}"
     When I request "/usuario/{usuario.id_usuario}"
     #Then echo last response
     Then the response is JSON

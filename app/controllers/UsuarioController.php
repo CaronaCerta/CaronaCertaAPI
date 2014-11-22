@@ -5,6 +5,11 @@
  * @apiName GetUsuarios
  * @apiGroup Usuario
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
  * @apiSuccess {Array} usuarios with a list of usuarios object.
@@ -48,7 +53,7 @@
  *       "message": "Erro ao recuperar os usuarios"
  *     }
  */
-$app->get('/', function () use ($app) {
+$app->get('/', array(new Authenticate(), 'call'), function () use ($app) {
     $response = array();
 
     $usuarios = Usuario::all();
@@ -73,6 +78,11 @@ $app->get('/', function () use ($app) {
  * @apiGroup Usuario
  *
  * @apiParam {String} id The id of the usuario
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
  *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
@@ -106,7 +116,7 @@ $app->get('/', function () use ($app) {
  *       "message": "Erro ao recuperar o usuario"
  *     }
  */
-$app->get('/:id', function ($id) use ($app) {
+$app->get('/:id', array(new Authenticate(), 'call'), function ($id) use ($app) {
     $response = array();
 
     $usuario = Usuario::find($id);
@@ -269,6 +279,10 @@ $app->post('/', function () use ($app) {
  * @apiParam {String} endereco The endereço of the usuario
  * @apiParam {String} cidade The cidade of the usuario
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
  *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
@@ -309,7 +323,7 @@ $app->post('/', function () use ($app) {
  *       "message": "Desculpe, esse usuario nao esta no sistema"
  *     }
  */
-$app->put('/:id', function ($id) use ($app) {
+$app->put('/:id', array(new Authenticate(), 'call'), function ($id) use ($app) {
     $response = array();
     $code = 200;
 
@@ -370,6 +384,11 @@ $app->put('/:id', function ($id) use ($app) {
  *
  * @apiParam {String} id The id of the usuario
  *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
  *
@@ -397,7 +416,7 @@ $app->put('/:id', function ($id) use ($app) {
  *       "message": "Desculpe, esse usuario nao esta no sistema"
  *     }
  */
-$app->delete('/:id', function ($id) use ($app) {
+$app->delete('/:id', array(new Authenticate(), 'call'), function ($id) use ($app) {
     $response = array();
 
     $usuario = Usuario::find($id);

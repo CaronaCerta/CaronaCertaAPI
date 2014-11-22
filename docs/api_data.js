@@ -39,6 +39,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -124,6 +143,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -202,6 +240,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -270,6 +327,25 @@ define({ api: [
     "title": "Carro List",
     "name": "GetCarros",
     "group": "Carro",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -364,6 +440,25 @@ define({ api: [
           }
         ]
       }
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
     },
     "success": {
       "fields": {
@@ -538,6 +633,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -633,6 +747,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -718,6 +851,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -796,6 +948,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -864,6 +1035,25 @@ define({ api: [
     "title": "Motorista List",
     "name": "GetMotoristas",
     "group": "Motorista",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -954,10 +1144,29 @@ define({ api: [
             "type": "String",
             "field": "data_habilitacao",
             "optional": false,
-            "description": "The data de habilitacao of the motorista *"
+            "description": "The data de habilitacao of the motorista"
           }
         ]
       }
+    },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
     },
     "success": {
       "fields": {
@@ -1093,6 +1302,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -1178,6 +1406,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -1256,6 +1503,25 @@ define({ api: [
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -1324,6 +1590,25 @@ define({ api: [
     "title": "User List",
     "name": "GetUsuarios",
     "group": "Usuario",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "field": "X-Auth-Token",
+            "optional": false,
+            "description": "Authorization key"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "    \"X-Auth-Token\": \"77ff482feb2f76e6f0d1d393945b0892\"\n"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
