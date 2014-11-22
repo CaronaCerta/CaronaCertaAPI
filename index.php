@@ -22,12 +22,15 @@ $app->group('/carona', array(new Authenticate(), 'call'), function () use ($app)
 $app->group('/carro', array(new Authenticate(), 'call'), function () use ($app) {
     require './app/controllers/CarroController.php';
 });
-/*
 $app->group('/motorista', array(new Authenticate(), 'call'), function () use ($app) {
-	require './app/controllers/MotoristaController.php';
+    require './app/controllers/MotoristaController.php';
 });
+/*
 $app->group('/passageiro', array(new Authenticate(), 'call'), function () use ($app) {
 	require './app/controllers/PassageiroController.php';
+});
+$app->group('/atributo', array(new Authenticate(), 'call'), function () use ($app) {
+	require './app/controllers/AtributoController.php';
 });
 */
 

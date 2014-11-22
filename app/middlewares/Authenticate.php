@@ -14,11 +14,11 @@ class Authenticate
         $headers = $app->request->headers();
 
         // Verifying Authorization Header
-        if (isset($headers['Authorization'])) {
+        if (isset($headers['X-Auth-Token'])) {
             // get the api key
-            $key = $headers['Authorization'];
+            $key = $headers['X-Auth-Token'];
 
-            $session = Session::find(null, array('key' => $key));
+            $session = Session::where('key', '=', $key)->first();
             // validating api key
             if (!$session) {
                 // api key is not present in users table
@@ -29,7 +29,6 @@ class Authenticate
             } else {
                 global $user_id;
 
-                $session->updated_at = date(DATE_ATOM);
                 $session->save();
 
                 // get user primary key id

@@ -7,6 +7,7 @@ class Motorista extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'id_motorista';
 
     protected $fillable = array(
+        'id_usuario',
         'numero_habilitacao',
         'data_habilitacao',
     );

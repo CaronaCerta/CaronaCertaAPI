@@ -27,9 +27,11 @@ class RestContext extends BehatContext
     private $_restObjectMethod = 'get';
     private $_client = null;
     private $_response = null;
+    private $_bodyResponses = null;
     private $_requestUrl = null;
+    private $_authorizationKey = null;
 
-    private $_parameters = array();
+    private $_parameters = [];
 
     /**
      * Initializes context.
@@ -40,6 +42,7 @@ class RestContext extends BehatContext
         // Initialize your context here
 
         $this->_restObject = new stdClass();
+        $this->_bodyResponses = new stdClass();
         $this->_client = new Client();
         $this->_parameters = $parameters;
     }
@@ -101,19 +104,18 @@ class RestContext extends BehatContext
                     $data = $data->$propertyName;
                 }
             } else {
-                throw new Exception("Response was not JSON\n" . $this->_response->getBody(true));
+                throw new Exception("Response was not JSON\n" . $data);
             }
         }
 
         return $data;
     }
 
-    public function buildPageUrl($pageUrl)
+    public function bindVars($stringValue)
     {
-        return preg_replace_callback('/\{([^\{]*)\}/',  function ($match) {
-            $data = json_decode($this->_response->getBody(true));
-            return $this->getObjectParameter($match[1], $data);
-        }, $pageUrl);
+        return preg_replace_callback('/\{([^\{]*)\}/', function ($match) {
+            return $this->getObjectParameter($match[1], $this->_bodyResponses);
+        }, $stringValue);
     }
 
     /**
@@ -166,21 +168,33 @@ class RestContext extends BehatContext
      */
     public function iRequest($pageUrl)
     {
-        $pageUrl = $this->buildPageUrl($pageUrl);
+        $pageUrl = $this->bindVars($pageUrl);
         $baseUrl = $this->getParameter('base_url');
         $this->_requestUrl = $baseUrl . $pageUrl;
+//        $this->_client = new Client([
+//            'defaults' => [
+//                'headers' => ['Authorization' => 'Kinvey 0a8368d7-cbb8-473d-8fec-a1f7f50b764b.X0KQYoRCFEdyBW9WIP/RpzYBrmyraGA5u9cEHprUGk8='],
+//            ],
+//        ]);
+
+        foreach ((array)$this->_restObject as $propertyName => $propertyValue) {
+            $this->_restObject->$propertyName = $this->bindVars($propertyValue);
+        }
 
         try {
             switch (strtoupper($this->_restObjectMethod)) {
                 case 'GET':
                     $response = $this->_client
-                        ->get($this->_requestUrl . '?' . http_build_query((array)$this->_restObject));
+                        ->get($this->_requestUrl . '?' . http_build_query((array)$this->_restObject), [
+                            'headers' => ['X-Auth-Token' => $this->_authorizationKey]
+                        ]);
                     break;
                 case 'PUT':
                     $putFields = (array)$this->_restObject;
                     $response = $this->_client
                         ->put($this->_requestUrl, [
                             'body' => $putFields,
+                            'headers' => ['X-Auth-Token' => $this->_authorizationKey],
                         ]);
                     break;
                 case 'POST':
@@ -188,16 +202,19 @@ class RestContext extends BehatContext
                     $response = $this->_client
                         ->post($this->_requestUrl, [
                             'body' => $postFields,
+                            'headers' => ['X-Auth-Token' => $this->_authorizationKey],
                         ]);
                     break;
                 case 'DELETE':
                     $response = $this->_client
-                        ->delete($this->_requestUrl . '?' . http_build_query((array)$this->_restObject));
+                        ->delete($this->_requestUrl . '?' . http_build_query((array)$this->_restObject), [
+                            'headers' => ['X-Auth-Token' => $this->_authorizationKey],
+                        ]);
                     break;
             }
             $this->_response = $response;
-        }
-        catch (BadResponseException $e) {
+            $this->_bodyResponses = ((object)array_merge((array)$this->_bodyResponses, (array)json_decode($response->getBody(true))));
+        } catch (BadResponseException $e) {
             $this->_response = $e->getResponse();
         }
 
@@ -234,6 +251,7 @@ class RestContext extends BehatContext
      */
     public function thePropertyEquals($propertyName, $propertyValue)
     {
+
         $data = json_decode($this->_response->getBody(true));
 
         if (empty($data)) {
@@ -241,6 +259,8 @@ class RestContext extends BehatContext
         }
 
         $value = $this->getObjectParameter($propertyName, $data);
+
+        $propertyValue = $this->bindVars($propertyValue);
 
         if (in_array($propertyValue, ["true", "false"])) {
             if ($value !== filter_var($propertyValue, FILTER_VALIDATE_BOOLEAN)) {
@@ -256,13 +276,7 @@ class RestContext extends BehatContext
      */
     public function theTypeOfThePropertyIs($propertyName, $typeString)
     {
-        $data = json_decode($this->_response->getBody(true));
-
-        if (empty($data)) {
-            throw new Exception("Response was not JSON\n" . $this->_response->getBody(true));
-        }
-
-        $value = $this->getObjectParameter($propertyName, $data);
+        $value = $this->bindVars('{' . $propertyName . '}');
 
         // check our type
         switch (strtolower($typeString)) {
@@ -294,5 +308,14 @@ class RestContext extends BehatContext
             $this->_requestUrl . "\n\n" .
             $this->_response
         );
+    }
+
+    /**
+     * @Given /^that its authorization is "([^"]*)"$/
+     */
+    public function thatItsAuthorizationIs($authorizationKey)
+    {
+        $authorizationKey = $this->bindVars($authorizationKey);
+        $this->_authorizationKey = $authorizationKey;
     }
 }

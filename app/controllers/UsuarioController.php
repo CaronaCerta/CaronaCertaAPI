@@ -372,7 +372,6 @@ $app->put('/:id', function ($id) use ($app) {
  *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
- * @apiSuccess {Array} usuario with usuario object.
  *
  * @apiSuccessExample Success-Response:
  *      HTTP/1.1 200 OK
