@@ -29,6 +29,13 @@ script:
   - npm install -g apidoc
   - npm run -script docs
 
+before_deploy:
+  - git config --global user.email 'travis@travis-ci.com'
+  - git config --global user.name 'Bot - Travis CI'
+  - git add -f vendor
+  - git add -f vendor/*
+  - git commit -am 'Travis Build'
+
 deploy:
   provider: openshift
   user: rodrigoegoncalves@gmail.com
