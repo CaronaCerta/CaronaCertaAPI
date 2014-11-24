@@ -25,6 +25,7 @@ php:
 script:
   - echo "Building"
 #  - npm test
+  - php composer.phar install
   - npm install -g apidoc
   - npm run -script docs
 
