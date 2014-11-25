@@ -27,13 +27,14 @@ script:
 #  - npm test
   - php composer.phar install
   - npm install -g apidoc
-  - npm run -script docs
+  - npm run docs
 
 before_deploy:
   - git config --global user.email "bot@travis-ci.com"
   - git config --global user.name "Bot - Travis CI"
   - git checkout $TRAVIS_BRANCH
   - git add -f vendor
+  - git add -f docs
   - git commit -am "Build $TRAVIS_BUILD_NUMBER"
 
 deploy:
