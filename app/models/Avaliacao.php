@@ -13,7 +13,6 @@ class Avaliacao extends \Illuminate\Database\Eloquent\Model
         'id_usuario_avaliado',
         'papel',
         'nota',
-        'senha',
     );
 
     protected $guarded = array(
