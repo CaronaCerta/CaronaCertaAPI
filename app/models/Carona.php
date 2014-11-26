@@ -8,6 +8,7 @@ class Carona extends \Illuminate\Database\Eloquent\Model
 
     protected $fillable = array(
         'id_carro',
+        'data',
         'lugar_saida',
         'lugar_destino',
         'lugares_disponiveis',

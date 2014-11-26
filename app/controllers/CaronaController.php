@@ -1,10 +1,57 @@
 <?php
 
 /**
- * Carona List
- * url - /Carona
- * method - GET
- * params - none
+ * @api {get} /carona Carona List
+ * @apiName GetCaronas
+ * @apiGroup Carona
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ * @apiSuccess {Array} caronas with a list of caronas object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Listagem feita com sucesso"
+ *          "caronas": [{
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          },
+ *          {
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }]
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Erro ao recuperar as caronas"
+ *     }
  */
 $app->get('/', function () use ($app) {
     $response = array();
@@ -26,10 +73,48 @@ $app->get('/', function () use ($app) {
 });
 
 /**
- * User Get
- * url - /caronas
- * method - GET
- * params - id
+ * @api {get} /carona/:id Carona Get
+ * @apiName GetCarona
+ * @apiGroup Carona
+ *
+ * @apiParam {String} id The id of the carona
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ * @apiSuccess {Array} carona with the carona object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Carona obtido com sucesso"
+ *          "carona": {
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Erro ao recuperar a carona"
+ *     }
  */
 $app->get('/:id', function ($id) use ($app) {
     $response = array();
@@ -38,7 +123,7 @@ $app->get('/:id', function ($id) use ($app) {
     if ($carona) {
         $code = 200;
         $response['error'] = false;
-        $response['message'] = 'Carona obtida com sucesso';
+        $response['message'] = 'Carona obtido com sucesso';
         $response['carona'] = $carona->toArray();
     } else {
         $code = 404;
@@ -51,10 +136,54 @@ $app->get('/:id', function ($id) use ($app) {
 });
 
 /**
- * User Registration
- * url - /usuario
- * method - POST
- * params - email, senha, nome, data_nascimento, telefone, endereco, cidade
+ * @api {post} /carona Carona Register
+ * @apiName NewCarona
+ * @apiGroup Carona
+ *
+ * @apiParam {String} id_carro The id of the carro
+ * @apiParam {String} data The data of the carona
+ * @apiParam {String} lugar_saida The lugar de saida of the carona
+ * @apiParam {String} lugar_destino The lugar destino of the carona
+ * @apiParam {String} lugares_disponiveis Lugares disponiveis in the carona
+ * @apiParam {String} observacoes Observações of the carona
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ * @apiSuccess {Array} carona with carona object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 201 Created
+ *      {
+ *          "error": false,
+ *          "message": "Registro feito com sucesso"
+ *          "carona": {
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Oops! Um erro ocorreu durante o registro"
+ *     }
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "error": true,
+ *       "message": "Campo obrigatório id_carro, data, lugar_saida, lugar_destino, lugares_disponiveis faltando ou vazio"
+ *     }
  */
 $app->post('/', function () use ($app) {
     $response = array();
@@ -62,56 +191,34 @@ $app->post('/', function () use ($app) {
 
     // check for required params
     Validators::verifyRequiredParams(array(
-        'email',
-        'senha',
-        'nome',
-        'data_nascimento',
-        'telefone',
-        'endereco',
-        'cidade',
+        'id_carro',
+        'data',
+        'lugar_saida',
+        'lugar_destino',
+        'lugares_disponiveis',
     ));
 
-    // create a new usuario
-    $usuario = new \Usuario(array(
-        'email' => $app->request->post('email'),
-        'senha' => PassHash::hash($app->request->post('senha')),
-        'nome' => $app->request->post('nome'),
-        'data_nascimento' => $app->request->post('data_nascimento'),
-        'telefone' => $app->request->post('telefone'),
-        'endereco' => $app->request->post('endereco'),
-        'cidade' => $app->request->post('cidade'),
+    // create a new carona
+    $carona = new \Carona(array(
+        'id_carro' => $app->request->post('id_carro'),
+        'data' => $app->request->post('data'),
+        'lugar_saida' => $app->request->post('lugar_saida'),
+        'lugar_destino' => $app->request->post('lugar_destino'),
+        'lugares_disponiveis' => $app->request->post('lugares_disponiveis'),
+        'observacoes' => $app->request->post('observacoes'),
     ));
 
-    // validating email address
-    Validators::validateEmail($usuario->email);
+    $res = $carona->save();
 
-    // verifying if user exists
-    $usuario_email_count = Usuario::where('email', '=', $usuario->email)->count();
-
-    if ($usuario_email_count == 0) {
-        $res = $usuario->save();
-
-        if ($res) {
-            $session = new \Session(array(
-                'key' => Session::generateKey(),
-                'id_usuario' => $usuario->id_usuario,
-            ));
-            $session->save();
-
-            $code = 201;
-            $response['error'] = false;
-            $response['message'] = 'Registro feito com sucesso';
-            $response['session'] = $session->toArray();
-            $response['usuario'] = $usuario->toArray();
-        } elseif (!$res) {
-            $code = 500;
-            $response['error'] = true;
-            $response['message'] = 'Oops! Um erro ocorreu durante o registro';
-        }
-    } elseif ($usuario_email_count > 0) {
-        $code = 200;
+    if ($res) {
+        $code = 201;
+        $response['error'] = false;
+        $response['message'] = 'Registro feito com sucesso';
+        $response['carona'] = $carona->toArray();
+    } elseif (!$res) {
+        $code = 500;
         $response['error'] = true;
-        $response['message'] = 'Desculpe, esse e-mail ja esta no sistema';
+        $response['message'] = 'Oops! Um erro ocorreu durante o registro';
     }
 
     // echo json response
@@ -119,59 +226,104 @@ $app->post('/', function () use ($app) {
 });
 
 /**
- * User Edition
- * url - /usuario
- * method - POST
- * params - email, senha, nome, data_nascimento, telefone, endereco, cidade
+ * @api {put} /carona/:id Carona Alter
+ * @apiName AlterCarona
+ * @apiGroup Carona
+ *
+ * @apiParam {String} id The id of the carona
+ *
+ * @apiParam {String} id_carro The id of the carro
+ * @apiParam {String} data The data of the carona
+ * @apiParam {String} lugar_saida The lugar de saida of the carona
+ * @apiParam {String} lugar_destino The lugar destino of the carona
+ * @apiParam {String} lugares_disponiveis Lugares disponiveis in the carona
+ * @apiParam {String} observacoes Observações of the carona
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ * @apiSuccess {Array} carona with carona object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Registro alterado com sucesso"
+ *          "carona": {
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Oops! Um erro ocorreu durante o registro"
+ *     }
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": true,
+ *       "message": "Desculpe, esse carona nao esta no sistema"
+ *     }
  */
 $app->put('/:id', function ($id) use ($app) {
     $response = array();
     $code = 200;
 
-    $usuario = Usuario::find($id);
+    $carona = Carona::find($id);
 
-    if ($usuario) {
+    if ($carona) {
         // check for required params
         Validators::verifyRequiredParams(array(
-            'email',
-            'senha',
-            'nome',
-            'data_nascimento',
-            'telefone',
-            'endereco',
-            'cidade',
+            'id_carro',
+            'data',
+            'lugar_saida',
+            'lugar_destino',
+            'lugares_disponiveis',
         ));
 
-        // edit usuario
-        $usuario->email = $app->request->post('email');
-        $usuario->senha = $app->request->post('senha');
-        $usuario->nome = $app->request->post('nome');
-        $usuario->data_nascimento = $app->request->post('data_nascimento');
-        $usuario->telefone = $app->request->post('telefone');
-        $usuario->endereco = $app->request->post('endereco');
-        $usuario->cidade = $app->request->post('cidade');
+        // edit carona
+        $carona->id_carro = $app->request->post('id_carro');
+        $carona->data = $app->request->post('data');
+        $carona->lugar_saida = $app->request->post('lugar_saida');
+        $carona->lugar_destino = $app->request->post('lugar_destino');
+        $carona->lugares_disponiveis = $app->request->post('lugares_disponiveis');
+        $carona->observacoes = $app->request->post('observacoes');
 
-        // validating email address
-        Validators::validateEmail($usuario->email);
-
-        $res = $usuario->save();
+        $res = $carona->save();
 
         if ($res) {
             $code = 200;
             $response['error'] = false;
             $response['message'] = 'Registro alterado com sucesso';
-            $response['usuario'] = $usuario->toArray();
+            $response['carona'] = $carona->toArray();
         } elseif (!$res) {
             $code = 500;
             $response['error'] = true;
             $response['message'] = 'Oops! Um erro ocorreu durante o registro';
         }
-
     }
     else {
         $code = 404;
         $response['error'] = true;
-        $response['message'] = 'Desculpe, esse usuario nao esta no sistema';
+        $response['message'] = 'Desculpe, esse carona nao esta no sistema';
     }
 
     // echo json response
@@ -179,33 +331,66 @@ $app->put('/:id', function ($id) use ($app) {
 });
 
 /**
- * User Deletion
- * url - /usuario
- * method - DELETE
- * params - id
+ * @api {delete} /carona/:id Carona Delete
+ * @apiName DeleteCarona
+ * @apiGroup Carona
+ *
+ * @apiParam {String} id The id of the carona
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Carona deletada com sucesso"
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Oops! Ocorreu um erro ao tentar remover a carona"
+ *     }
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": true,
+ *       "message": "Desculpe, esse carona nao esta no sistema"
+ *     }
  */
 $app->delete('/:id', function ($id) use ($app) {
     $response = array();
 
-    $usuario = Usuario::find($id);
+    $carona = Carona::find($id);
 
-    if ($usuario) {
-        $return = $usuario->delete();
+    if ($carona) {
+        $return = $carona->delete();
         if ($return) {
             $code = 200;
             $response['error'] = false;
-            $response['message'] = 'Usuario deletado com sucesso';
+            $response['message'] = 'Carona deletada com sucesso';
         } else {
             $code = 500;
             $response['error'] = true;
-            $response['message'] = 'Usuario nao removido';
+            $response['message'] = 'Oops! Ocorreu um erro ao tentar remover a carona';
         }
 
 
     } else {
         $code = 404;
         $response['error'] = true;
-        $response['message'] = 'Erro ao recuperar o usuario';
+        $response['message'] = 'Desculpe, esse carona nao esta no sistema';
     }
 
     // echo json response
