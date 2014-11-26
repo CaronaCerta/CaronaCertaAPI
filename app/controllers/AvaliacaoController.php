@@ -56,6 +56,9 @@
 $app->get('/', function () use ($app) {
     $response = array();
 
+    // @todo get avaliacoes by user
+    //$avaliacoes = Avaliacao::where('id_usuario_avaliado', '=', $app->request->post('id_usuario'));
+
     $avaliacoes = Avaliacao::all();
     if ($avaliacoes) {
         $code = 200;
@@ -215,6 +218,14 @@ $app->post('/', function () use ($app) {
         'nota' => $app->request->post('nota'),
     ));
 
+    // validating role
+    Validators::validateFunction($avaliacao->papel);
+
+    // @todo verify if users exist
+    // verifying if both user exists
+    // $usuario_avaliador_count = Usuario::where('email', '=', $avaliacao->id_usuario_avaliador)->count();
+    // $usuario_avaliado_count = Usuario::where('email', '=', $avaliacao->id_usuario_avaliado)->count();
+
     $res = $avaliacao->save();
 
     if ($res) {
@@ -313,6 +324,14 @@ $app->put('/:id', function ($id) use ($app) {
         $avaliacao->id_usuario_avaliado = $app->request->post('id_usuario_avaliado');
         $avaliacao->papel = $app->request->post('papel');
         $avaliacao->nota = $app->request->post('nota');
+
+        // validating role
+        Validators::validateFunction($avaliacao->papel);
+
+        // @todo verify if users exist
+        // verifying if both user exists
+        // $usuario_avaliador_count = Usuario::where('email', '=', $avaliacao->id_usuario_avaliador)->count();
+        // $usuario_avaliado_count = Usuario::where('email', '=', $avaliacao->id_usuario_avaliado)->count();
 
         $res = $avaliacao->save();
 
