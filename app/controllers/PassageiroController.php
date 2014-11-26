@@ -21,17 +21,15 @@
  *          "message": "Listagem feita com sucesso"
  *          "passageiros": [{
  *              "id_passageiro": "5",
- *              "modelo": "Test",
- *              "descricao": "test",
- *              "id_motorista": "20",
+ *              "id_carona": "5",
+ *              "id_usuario": "5",
  *              "created_at": "2014-11-14 00:00:00",
  *              "updated_at": "2014-11-14 00:00:00"
  *          },
  *          {
  *              "id_passageiro": "5",
- *              "modelo": "Test",
- *              "descricao": "test",
- *              "id_motorista": "20",
+ *              "id_carona": "5",
+ *              "id_usuario": "5",
  *              "created_at": "2014-11-14 00:00:00",
  *              "updated_at": "2014-11-14 00:00:00"
  *          }]
@@ -59,7 +57,7 @@ $app->get('/', function () use ($app) {
     } else {
         $code = 500;
         $response['error'] = true;
-        $response['message'] = 'Erro ao recuperar os usuarios';
+        $response['message'] = 'Erro ao recuperar os passageiros';
     }
 
     // echo json response
@@ -89,9 +87,8 @@ $app->get('/', function () use ($app) {
  *          "message": "Passageiro obtido com sucesso"
  *          "passageiro": {
  *              "id_passageiro": "5",
- *              "modelo": "Test",
- *              "descricao": "test",
- *              "id_motorista": "20",
+ *              "id_carona": "5",
+ *              "id_usuario": "5",
  *              "created_at": "2014-11-14 00:00:00",
  *              "updated_at": "2014-11-14 00:00:00"
  *          }
@@ -131,9 +128,8 @@ $app->get('/:id', function ($id) use ($app) {
  * @apiName NewPassageiro
  * @apiGroup Passageiro
  *
- * @apiParam {String} modelo The modelo of the passageiro
- * @apiParam {String} descricao The descricao of the passageiro
- * @apiParam {String} id_motorista The ID of the motorista
+ * @apiParam {String} id_carona The ID of the carona
+ * @apiParam {String} id_usuario The ID of the usuario
  *
  * @apiHeader {String} X-Auth-Token Authorization key
  *
@@ -151,9 +147,8 @@ $app->get('/:id', function ($id) use ($app) {
  *          "message": "Registro feito com sucesso"
  *          "passageiro": {
  *              "id_passageiro": "5",
- *              "modelo": "Test",
- *              "descricao": "test",
- *              "id_motorista": "20",
+ *              "id_carona": "5",
+ *              "id_usuario": "5",
  *              "created_at": "2014-11-14 00:00:00",
  *              "updated_at": "2014-11-14 00:00:00"
  *          }
@@ -173,7 +168,7 @@ $app->get('/:id', function ($id) use ($app) {
  *     HTTP/1.1 200 OK
  *     {
  *       "error": true,
- *       "message": "Campo obrigatório modelo, descricao e id_motorista faltando ou vazio"
+ *       "message": "Campo obrigatório id_carona, id_usuario faltando ou vazio"
  *     }
  */
 $app->post('/', function () use ($app) {
@@ -215,9 +210,8 @@ $app->post('/', function () use ($app) {
  *
  * @apiParam {String} id The id of the passageiro
  *
- * @apiParam {String} modelo The modelo of the passageiro
- * @apiParam {String} descricao The descricao of the passageiro
- * @apiParam {String} id_motorista The ID of the motorista
+ * @apiParam {String} id_carona The ID of the carona
+ * @apiParam {String} id_usuario The ID of the usuario
  *
  * @apiHeader {String} X-Auth-Token Authorization key
  *
@@ -235,9 +229,8 @@ $app->post('/', function () use ($app) {
  *          "message": "Registro alterado com sucesso"
  *          "passageiro": {
  *              "id_passageiro": "5",
- *              "modelo": "Test",
- *              "descricao": "test",
- *              "id_motorista": 20,
+ *              "id_carona": "5",
+ *              "id_usuario": "5",
  *              "created_at": "2014-11-14 00:00:00",
  *              "updated_at": "2014-11-14 00:00:00"
  *          }
