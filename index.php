@@ -28,10 +28,8 @@ $app->group('/motorista', array(new Authenticate(), 'call'), function () use ($a
 $app->group('/atributo', array(new Authenticate(), 'call'), function () use ($app) {
     require './app/controllers/AtributoController.php';
 });
-/*
 $app->group('/passageiro', array(new Authenticate(), 'call'), function () use ($app) {
 	require './app/controllers/PassageiroController.php';
 });
-*/
 
 $app->run();
