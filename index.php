@@ -25,12 +25,12 @@ $app->group('/carro', array(new Authenticate(), 'call'), function () use ($app) 
 $app->group('/motorista', array(new Authenticate(), 'call'), function () use ($app) {
     require './app/controllers/MotoristaController.php';
 });
+$app->group('/atributo', array(new Authenticate(), 'call'), function () use ($app) {
+    require './app/controllers/AtributoController.php';
+});
 /*
 $app->group('/passageiro', array(new Authenticate(), 'call'), function () use ($app) {
 	require './app/controllers/PassageiroController.php';
-});
-$app->group('/atributo', array(new Authenticate(), 'call'), function () use ($app) {
-	require './app/controllers/AtributoController.php';
 });
 */
 

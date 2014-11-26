@@ -26,7 +26,6 @@ Feature: Testing the Carro
     When I request "/carro"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     And the "carro.modelo" property equals "test1"
     And the "carro.descricao" property equals "test2"
@@ -66,7 +65,6 @@ Feature: Testing the Carro
     When I request "/carro/{carro.id_carro}"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     And the "usuario.modelo" property equals "test3"
     And the "usuario.descricao" property equals "test4"
@@ -103,6 +101,5 @@ Feature: Testing the Carro
     When I request "/carro/{carro.id_carro}"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     Then the response status code should be 200

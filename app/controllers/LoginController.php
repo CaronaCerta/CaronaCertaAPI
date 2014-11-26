@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @api {get} /login User Login
+ * @api {get} /login Usuario Login
  * @apiName Login
  * @apiGroup Login
  *
@@ -91,7 +91,7 @@ $app->post('/', function () use ($app) {
 });
 
 /**
- * @api {delete} /login/:key User Logout
+ * @api {delete} /login/:key Usuario Logout
  * @apiName Logout
  * @apiGroup Login
  *

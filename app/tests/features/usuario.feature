@@ -12,7 +12,6 @@ Feature: Testing the Usuario
     When I request "/usuario"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     And the response has a "session" property
     And the "usuario.email" property equals "test@test.com"
@@ -46,7 +45,6 @@ Feature: Testing the Usuario
     When I request "/usuario/{usuario.id_usuario}"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     And the "usuario.email" property equals "test2@test.com"
     And the "usuario.nome" property equals "test2"
@@ -72,7 +70,6 @@ Feature: Testing the Usuario
     When I request "/usuario/{usuario.id_usuario}"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     Then the response status code should be 200
 

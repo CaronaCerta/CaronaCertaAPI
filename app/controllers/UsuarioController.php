@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @api {get} /usuario User List
+ * @api {get} /usuario Usuario List
  * @apiName GetUsuarios
  * @apiGroup Usuario
  *
@@ -73,7 +73,7 @@ $app->get('/', array(new Authenticate(), 'call'), function () use ($app) {
 });
 
 /**
- * @api {get} /usuario/:id User Get
+ * @api {get} /usuario/:id Usuario Get
  * @apiName GetUsuario
  * @apiGroup Usuario
  *
@@ -136,7 +136,7 @@ $app->get('/:id', array(new Authenticate(), 'call'), function ($id) use ($app) {
 });
 
 /**
- * @api {post} /usuario User Register
+ * @api {post} /usuario Usuario Register
  * @apiName NewUsuario
  * @apiGroup Usuario
  *
@@ -265,7 +265,7 @@ $app->post('/', function () use ($app) {
 });
 
 /**
- * @api {put} /usuario/:id User Alter
+ * @api {put} /usuario/:id Usuario Alter
  * @apiName AlterUsuario
  * @apiGroup Usuario
  *
@@ -378,7 +378,7 @@ $app->put('/:id', array(new Authenticate(), 'call'), function ($id) use ($app) {
 });
 
 /**
- * @api {delete} /usuario/:id User Delete
+ * @api {delete} /usuario/:id Usuario Delete
  * @apiName DeleteUsuario
  * @apiGroup Usuario
  *

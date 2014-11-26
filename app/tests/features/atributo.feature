@@ -1,6 +1,6 @@
-Feature: Testing the Motorista
+Feature: Testing the Atributo
 
-  Scenario: Creating a new Motorista
+  Scenario: Creating a new Atributo
     Given that I want to make a new "Usuario"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"
@@ -11,21 +11,17 @@ Feature: Testing the Motorista
     And that its "cidade" is "test"
     When I request "/usuario"
 
-    Given that I want to make a new "Motorista"
+    Given that I want to make a new "Atributo"
     And that its authorization is "{session.key}"
-    And that its "id_usuario" is "{usuario.id_usuario}"
-    And that its "numero_habilitacao" is "12341345"
-    And that its "data_habilitacao" is "1990-01-01"
-    When I request "/motorista"
+    And that its "nome" is "test"
+    When I request "/atributo"
     #Then echo last response
     Then the response is JSON
     And the "error" property equals "false"
-    And the "motorista.id_usuario" property equals "{usuario.id_usuario}"
-    And the "motorista.numero_habilitacao" property equals "12341345"
-    And the "motorista.data_habilitacao" property equals "1990-01-01"
+    And the "atributo.nome" property equals "test"
     Then the response status code should be 201
 
-  Scenario: Editing an Motorista
+  Scenario: Editing an Atributo
     Given that I want to make a new "Usuario"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"
@@ -36,28 +32,22 @@ Feature: Testing the Motorista
     And that its "cidade" is "test"
     When I request "/usuario"
 
-    Given that I want to make a new "Motorista"
+    Given that I want to make a new "Atributo"
     And that its authorization is "{session.key}"
-    And that its "id_usuario" is "{usuario.id_usuario}"
-    And that its "numero_habilitacao" is "12341345"
-    And that its "data_habilitacao" is "1990-01-01"
-    When I request "/motorista"
+    And that its "nome" is "test"
+    When I request "/atributo"
 
-    Given that I want to edit a "Motorista"
+    Given that I want to edit a "Atributo"
     And that its authorization is "{session.key}"
-    And that its "id_usuario" is "{usuario.id_usuario}"
-    And that its "numero_habilitacao" is "123413456"
-    And that its "data_habilitacao" is "1991-01-01"
-    When I request "/motorista/{motorista.id_motorista}"
+    And that its "nome" is "test2"
+    When I request "/atributo/{atributo.id_atributo}"
     #Then echo last response
     Then the response is JSON
     And the "error" property equals "false"
-    And the "motorista.id_usuario" property equals "{usuario.id_usuario}"
-    And the "motorista.numero_habilitacao" property equals "123413456"
-    And the "motorista.data_habilitacao" property equals "1991-01-01"
+    And the "atributo.nome" property equals "test2"
     Then the response status code should be 200
 
-  Scenario: Deleting an Motorista
+  Scenario: Deleting an Atributo
     Given that I want to make a new "Usuario"
     And that its "email" is "test@test.com"
     And that its "senha" is "test"
@@ -68,17 +58,16 @@ Feature: Testing the Motorista
     And that its "cidade" is "test"
     When I request "/usuario"
 
-    Given that I want to make a new "Motorista"
+    Given that I want to make a new "Atributo"
     And that its authorization is "{session.key}"
-    And that its "id_usuario" is "{usuario.id_usuario}"
-    And that its "numero_habilitacao" is "12341345"
-    And that its "data_habilitacao" is "1990-01-01"
-    When I request "/motorista"
+    And that its "nome" is "test"
+    When I request "/atributo"
 
-    Given that I want to delete a "Motorista"
+    Given that I want to delete a "Atributo"
     And that its authorization is "{session.key}"
-    When I request "/motorista/{motorista.id_motorista}"
+    When I request "/atributo/{atributo.id_atributo}"
     #Then echo last response
     Then the response is JSON
     And the "error" property equals "false"
     Then the response status code should be 200
+

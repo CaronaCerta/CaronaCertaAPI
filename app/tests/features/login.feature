@@ -7,7 +7,6 @@ Feature: Testing the Login feature
     When I request "/login"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "true"
     Then the response status code should be 404
 
@@ -16,7 +15,6 @@ Feature: Testing the Login feature
     When I request "/login"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "true"
     Then the response status code should be 400
 
@@ -38,7 +36,6 @@ Feature: Testing the Login feature
     When I request "/login"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     And the response has a "session" property
     And the response has a "usuario" property
@@ -49,6 +46,5 @@ Feature: Testing the Login feature
     When I request "/login/{session.key}"
     #Then echo last response
     Then the response is JSON
-    And the response has a "error" property
     And the "error" property equals "false"
     Then the response status code should be 200
