@@ -49,12 +49,12 @@ class Validators
         }
     }
 
-    public static function validateFunction($email)
+    public static function validateRole($role)
     {
         $app = \Slim\Slim::getInstance();
-        if (!filter_var($email, FILTER_VALIDATE_BOOLEAN)) {
+        if (!filter_var($role, FILTER_VALIDATE_BOOLEAN) === NULL) {
             $response['error'] = true;
-            $response['message'] = 'Fun��o de usu�rio inv�lida';
+            $response['message'] = 'Função de usuário inválida';
             Response::echoResponse(400, $response);
             $app->stop();
         }

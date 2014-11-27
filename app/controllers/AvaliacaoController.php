@@ -219,7 +219,7 @@ $app->post('/', function () use ($app) {
     ));
 
     // validating role
-    Validators::validateFunction($avaliacao->papel);
+    Validators::validateRole($avaliacao->papel);
 
     // @todo verify if users exist
     // verifying if both user exists
@@ -326,7 +326,7 @@ $app->put('/:id', function ($id) use ($app) {
         $avaliacao->nota = $app->request->post('nota');
 
         // validating role
-        Validators::validateFunction($avaliacao->papel);
+        Validators::validateRole($avaliacao->papel);
 
         // @todo verify if users exist
         // verifying if both user exists
