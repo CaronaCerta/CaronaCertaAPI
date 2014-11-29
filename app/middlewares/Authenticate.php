@@ -32,7 +32,7 @@ class Authenticate
                 $session->save();
 
                 // get user primary key id
-                $user_id = $session->usuario->id_usuario;
+                $user_id = $session->usuario->id_user;
             }
         } else {
             // api key is missing in header
