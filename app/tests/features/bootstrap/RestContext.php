@@ -171,11 +171,6 @@ class RestContext extends BehatContext
         $pageUrl = $this->bindVars($pageUrl);
         $baseUrl = $this->getParameter('base_url');
         $this->_requestUrl = $baseUrl . $pageUrl;
-//        $this->_client = new Client([
-//            'defaults' => [
-//                'headers' => ['Authorization' => 'Kinvey 0a8368d7-cbb8-473d-8fec-a1f7f50b764b.X0KQYoRCFEdyBW9WIP/RpzYBrmyraGA5u9cEHprUGk8='],
-//            ],
-//        ]);
 
         foreach ((array)$this->_restObject as $propertyName => $propertyValue) {
             $this->_restObject->$propertyName = $this->bindVars($propertyValue);

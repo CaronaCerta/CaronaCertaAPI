@@ -22,6 +22,11 @@ Feature: Testing the Usuario
     And the "usuario.cidade" property equals "test"
     Then the response status code should be 201
 
+    Given that I want to find a "Usuario"
+    And that its authorization is "{session.key}"
+    When I request "/usuario/me"
+    Then echo last response
+
   Scenario: Editing an Usuario
     Given that I want to make a new "Usuario"
     And that its "email" is "test@test.com"

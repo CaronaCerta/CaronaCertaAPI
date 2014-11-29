@@ -72,6 +72,71 @@ $app->get('/', array(new Authenticate(), 'call'), function () use ($app) {
     Response::echoResponse($code, $response);
 });
 
+
+/**
+ * @api {get} /usuario/me Usuario Me Get
+ * @apiName GetUsuarioMe
+ * @apiGroup Usuario
+ *
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ * @apiSuccess {Array} usuario with the usuario object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Usuario obtido com sucesso"
+ *          "usuario": {
+ *              "id_usuario": "5",
+ *              "email": "test@test.com",
+ *              "nome": "test",
+ *              "data_nascimento": "1990-10-10",
+ *              "telefone": "3333-3333",
+ *              "endereco": "test",
+ *              "cidade": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Erro ao recuperar o usuario"
+ *     }
+ */
+$app->get('/me', array(new Authenticate(), 'call'), function () use ($app) {
+    global $user_id;
+    $response = array();
+
+    $usuario = Usuario::find($user_id);
+
+    if ($usuario) {
+        $code = 200;
+        $response['error'] = false;
+        $response['message'] = 'Usuario obtido com sucesso';
+        $response['usuario'] = $usuario->toArray();
+    } else {
+        $code = 404;
+        $response['error'] = true;
+        $response['message'] = 'Erro ao recuperar o usuario';
+    }
+
+    // echo json response
+    Response::echoResponse($code, $response);
+});
+
 /**
  * @api {get} /usuario/:id Usuario Get
  * @apiName GetUsuario
