@@ -10,6 +10,14 @@
  * @apiHeaderExample Header-Example:
  *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
  *
+ * @apiParam {String} Sort List of fields separated by comma for sorting the results (default is in ascending order. For decreasing order, put "-" in front of the field)
+ * @apiParam {Array} Fields List of fields to apply the filter
+ *
+ * @apiParamExample {String} Request-Example:
+ *      sort=-field1,field2
+ * @apiParamExample {String} Request-Example:
+ *      field1=value1&field2=value2&field3=value3
+ *
  * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
  * @apiSuccess {String} message An success message explaining the result.
  * @apiSuccess {Array} passageiros with a list of passageiros object.
@@ -48,8 +56,17 @@
 $app->get('/', function () use ($app) {
     $response = array();
 
-    $passageiros = Passageiro::all();
-    if ($passageiros) {
+    $query = Passageiro::query();
+    SortParameters::applySort($query, $app);
+    FilterParameters::applyFilter($query, $app);
+
+    try {
+        $passageiros = $query->get();
+    } catch (\Illuminate\Database\QueryException $e) {
+        // Ignore the exception. It will be handled below
+    }
+
+    if (isset($passageiros)) {
         $code = 200;
         $response['error'] = false;
         $response['message'] = 'Listagem feita com sucesso';
