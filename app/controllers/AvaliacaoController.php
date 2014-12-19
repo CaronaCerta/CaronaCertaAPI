@@ -90,6 +90,103 @@ $app->get('/', function () use ($app) {
 });
 
 /**
+ * @api {get} /avaliacao Avaliacao List Pending
+ * @apiName GetAvaliacaosPending
+ * @apiGroup Avaliacao
+ *
+ * @apiHeader {String} X-Auth-Token Authorization key
+ *
+ * @apiHeaderExample Header-Example:
+ *      "X-Auth-Token": "77ff482feb2f76e6f0d1d393945b0892"
+ *
+ * @apiParam {String} Sort List of fields separated by comma for sorting the results (default is in ascending order. For decreasing order, put "-" in front of the field)
+ * @apiParam {Array} Fields List of fields to apply the filter
+ *
+ * @apiParamExample {String} Request-Example:
+ *      sort=-field1,field2
+ * @apiParamExample {String} Request-Example:
+ *      field1=value1&field2=value2&field3=value3
+ *
+ * @apiSuccess {Boolean} error true when there is an error, and false otherwise.
+ * @apiSuccess {String} message An success message explaining the result.
+ * @apiSuccess {Array} caronas with a list of caronas object.
+ *
+ * @apiSuccessExample Success-Response:
+ *      HTTP/1.1 200 OK
+ *      {
+ *          "error": false,
+ *          "message": "Listagem feita com sucesso"
+ *          "caronas": [{
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          },
+ *          {
+ *              "id_carona": "5",
+ *              "id_carro": "6",
+ *              "data": "1990-10-10",
+ *              "lugar_saida": "test",
+ *              "lugar_destino": "test",
+ *              "lugares_disponiveis": "3",
+ *              "observacoes": "test",
+ *              "created_at": "2014-11-14 00:00:00",
+ *              "updated_at": "2014-11-14 00:00:00"
+ *          }]
+ *      }
+ *
+ * @apiError {Boolean} error true when there is an error, and false otherwise.
+ * @apiError {String} message An error message explaining the error.
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 500 Server Error
+ *     {
+ *       "error": true,
+ *       "message": "Erro ao recuperar as avaliacoes"
+ *     }
+ */
+$app->get('/pending', function () use ($app) {
+    global $user_id;
+    $response = array();
+
+    $query = Carona::query();
+    SortParameters::applySort($query, $app);
+    FilterParameters::applyFilter($query, $app);
+
+    try {
+        $query->join('passageiro', 'passageiro.id_carona', '=', 'carona.id_carona');
+        $query->whereNotIn('carona.id_carona', function ($query) use ($user_id) {
+            $query->from('avaliacao')
+                ->select('avaliacao.id_carona')
+                ->where('avaliacao.id_usuario_avaliador', '=', $user_id);
+        });
+        $caronas_sem_avaliacao = $query->get();
+    } catch (\Illuminate\Database\QueryException $e) {
+        // Ignore the exception. It will be handled below
+    }
+
+    if (isset($caronas_sem_avaliacao)) {
+        $code = 200;
+        $response['error'] = false;
+        $response['message'] = 'Listagem feita com sucesso';
+        $response['caronas'] = $caronas_sem_avaliacao->toArray();
+    } else {
+        $code = 500;
+        $response['error'] = true;
+        $response['message'] = 'Erro ao recuperar as avaliacoes';
+    }
+
+    // echo json response
+    Response::echoResponse($code, $response);
+});
+
+
+/**
  * @api {get} /avaliacao/:id Avaliacao Get
  * @apiName GetAvaliacao
  * @apiGroup Avaliacao
@@ -269,7 +366,7 @@ $app->post('/', function () use ($app) {
  * @apiParam {String} id_usuario_avaliado The ID of the usuario avaliado
  * @apiParam {String} papel The papel of the avaliacao (0=motorista, 1=passageiro)
  * @apiParam {String} nota The nota of the avaliacao (0 to 5)
- * 
+ *
  * @apiHeader {String} X-Auth-Token Authorization key
  *
  * @apiHeaderExample Header-Example:
@@ -360,8 +457,7 @@ $app->put('/:id', function ($id) use ($app) {
             $response['message'] = 'Oops! Um erro ocorreu durante o registro';
         }
 
-    }
-    else {
+    } else {
         $code = 404;
         $response['error'] = true;
         $response['message'] = 'Desculpe, essa avaliacao nao esta no sistema';
