@@ -255,7 +255,7 @@ $app->get('/:id', function ($id) use ($app) {
  * @apiGroup Avaliacao
  *
  * @apiParam {String} id_atributo The ID of the atributo
- * @apiParam {String} id_motorista The ID of the carona
+ * @apiParam {String} id_carona The ID of the carona
  * @apiParam {String} id_usuario_avaliador The ID of the usuario avaliador
  * @apiParam {String} id_usuario_avaliado The ID of the usuario avaliado
  * @apiParam {String} papel The papel of the avaliacao (0=motorista, 1=passageiro)
@@ -361,7 +361,7 @@ $app->post('/', function () use ($app) {
  * @apiParam {String} id The id of the avaliacao
  *
  * @apiParam {String} id_atributo The ID of the atributo
- * @apiParam {String} id_motorista The ID of the carona
+ * @apiParam {String} id_carona The ID of the carona
  * @apiParam {String} id_usuario_avaliador The ID of the usuario avaliador
  * @apiParam {String} id_usuario_avaliado The ID of the usuario avaliado
  * @apiParam {String} papel The papel of the avaliacao (0=motorista, 1=passageiro)
